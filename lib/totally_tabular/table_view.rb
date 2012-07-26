@@ -39,11 +39,12 @@ module TotallyTabular
       collection.map do |item|
         row = Row.new
         row_attributes = nil
-        row.render(columns.map do |column|
+        rows = columns.map { |column|
           column.instance_exec(item, &column.definition)
           row.attributes!(column.row_attributes)
           @helper.content_tag(:td, @calling_object.instance_exec(item, row, &column.template), column.cell_attributes)
-        end.join)
+        }
+        row.render(rows.join)
       end
     end
 
@@ -51,7 +52,7 @@ module TotallyTabular
       headers = columns.map do |column|
         @helper.content_tag(:th, column.name, column.header_attributes)
       end
-      Row.new.render(headers)
+      Row.new.render(headers.join)
     end
 
   end
