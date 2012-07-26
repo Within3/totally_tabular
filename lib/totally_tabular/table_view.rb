@@ -26,7 +26,7 @@ module TotallyTabular
       tbody = @helper.content_tag(:tbody, rows.join)
       thead = @helper.content_tag(:thead, headers)
       tfoot = @helper.content_tag(:tfoot)
-      @helper.content_tag(:table, [thead, tbody, tfoot], options)
+      @helper.content_tag(:table, [thead, tbody, tfoot].join, options)
     end
 
     def options
